@@ -1,0 +1,8 @@
+USE RISKLICKDB;
+CREATE TABLE users(
+    id INT AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    password CHAR(60),
+    PRIMARY KEY(id)
+)

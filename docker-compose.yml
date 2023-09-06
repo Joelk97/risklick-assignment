@@ -1,0 +1,65 @@
+version: '3'
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:latest
+    command: --default-authentication-plugin=mysql-native-password
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_PASSWORD
+      - MYSQLDB_DATABASE=$MYSQLDB_DATABASE
+      - MYSQLDB_USER=$MYSQLDB_USER
+      - MYSQLDB_PASSWORD=$MYSQLDB_PASSWORD
+      - MYSQLDB_HOST=$MYSQLDB_HOST
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-volume:/var/lib/mysql:rw
+      - ./mariadb:/docker-entrypoint-initdb.d/
+    networks:
+      - my-network
+    
+  
+  next-app:
+    container_name: next-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    ports:
+      - $NEXTJS_APP_LOCAL_PORT:$NEXTJS_APP_DOCKER_PORT
+    stdin_open: true
+    environment:
+      - DB_HOST=$MYSQLDB_HOST
+      - DB_USER=$MYSQLDB_USER
+      - DB_PASSWORD=$MYSQLDB_PASSWORD
+      - DB_DATABASE=$MYSQLDB_DATABASE
+      - DB_PORT=3306
+    tty: true
+    depends_on:
+      - mariadb
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/.next
+    networks:
+      - my-network
+  
+  cron-job:
+    build:
+      context: .
+      dockerfile: Dockerfile.cron
+    container_name: my-cron-job
+    depends_on:
+      - mariadb
+    networks:
+      - my-network
+
+volumes:
+  mysql-volume:
+networks:
+  my-network:

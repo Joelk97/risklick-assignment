@@ -1,0 +1,7 @@
+USE RISKLICKDB;
+CREATE TABLE testUsers(
+    id INT AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    PRIMARY KEY(id)
+);
+

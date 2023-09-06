@@ -1,0 +1,17 @@
+# alpine (small node image)
+FROM node:16
+
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy your data fetching script into the container
+
+COPY ./app/api/post/update-risklick/route.js ./
+RUN mkdir -p /etc/cron.d
+# Create a crontab file and add a job to run the script once a day
+#         min 0, hour 0, * day, * month, *year (Every day at 00:00)
+RUN echo "*/10 * * * * node /app/route.js" > /etc/cron.d/data-fetching-cron
+
+# Run cron in the foreground
+CMD ["cron", "-f"]

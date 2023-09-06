@@ -1,0 +1,3 @@
+USE RISKLICKDB;
+INSERT INTO testUsers VALUES(1, "Test1");
+INSERT INTO testUsers VALUES(2, "Test2");
