@@ -49,7 +49,7 @@ export default function CreatePost() {
       if (res.ok) {
         const form = e.target;
         form.reset();
-        router.push("/");
+        router.push("/dashboard");
       } else {
         console.log(res);
         alert("Publishing failed");

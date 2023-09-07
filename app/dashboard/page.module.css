@@ -1,0 +1,99 @@
+.main {
+  min-height: 100vh;
+  width: 100%;
+  background: #111;
+  color: #fffffa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  padding: 4rem 0;
+}
+.authContainer {
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  gap: 40px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.authContainer button {
+  background: #37607d;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #fffffa;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 2px 2px 4px #fffffa;
+}
+.authContainer button:hover {
+  cursor: pointer;
+}
+.authContainer button a {
+  text-decoration: none;
+  color: #fffffa;
+}
+.postsContainer {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.post {
+  padding: 2rem;
+  border-radius: 20px;
+  border: solid #fffffa 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.post h2 {
+  font-size: 28px;
+}
+.post span {
+  font-size: small;
+}
+.post p {
+  font-size: 18px;
+}
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  gap: 20%;
+}
+.comments {
+  display: flex;
+  flex-direction: column;
+
+  width: 80%;
+  padding: 10px 0 5px 10px;
+  border-radius: 20px;
+}
+.comment {
+  padding-left: 40px;
+  border-left: solid 2px #fffffa;
+  background: #37607d;
+  padding-top: 20px;
+  width: 80%;
+}
+.commentForm {
+  margin-left: 40px;
+  width: 80%;
+}
+.commentForm textarea {
+  padding-left: 40px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+.commentButton {
+  width: fit-content;
+  align-self: flex-end;
+}
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

@@ -13,7 +13,7 @@ export async function GET() {
 
     console.log("Slug: ", slug);
     const slugExists = await fetch(
-      "http://localhost:3000/api/post/post-exists",
+      "http://localhost:3000/api/post/update-risklick",
       {
         method: "POST",
         headers: {
@@ -48,5 +48,20 @@ export async function GET() {
     return NextResponse.json(resCreatePost);
   } catch (e) {
     return e;
+  }
+}
+
+export async function POST(req) {
+  try {
+    const { slug } = await req.json();
+    const conn = await connectDB();
+    console.log("connected");
+    const data = await conn.query(`SELECT * FROM post WHERE slug = '${slug}'`);
+    console.log(data);
+    conn.end();
+    console.log("Disconnected");
+    return NextResponse.json(data);
+  } catch (e) {
+    console.log("Error in route: ", e);
   }
 }

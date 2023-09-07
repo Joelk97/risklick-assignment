@@ -26,7 +26,7 @@ export default function Signin() {
         alert("Invalid credentials or user does not exists");
         return;
       }
-      router.push("/");
+      router.push("/dashboard");
     } catch (e) {
       console.error(e);
     }
