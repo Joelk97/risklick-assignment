@@ -9,7 +9,7 @@ The app runs inside of a docker container. The container is structured with thre
 To setup everything make sure to have installed docker compose.
 In the next step enter inside of the next-app folder with the terminal and run
 
-# docker-compose up
+**docker-compose up**
 
 Docker will build the app. It takes up to 3 minutes.
 
@@ -23,7 +23,7 @@ In the sign-up page you can register you by entering your name, your email and y
 Once you are registered, the app redirects you to the sign-in page, where you can sign in with the email and password.
 One you are signed-in, the app redirects you to the dashboard, where you will see the posts and comments that are already in the DB.
 
-## It may take a while, due to the dev environment.
+**It may take a while, due to the dev environment.**
 
 If you can't see the posts after a few seconds, just refresh the page.
 
@@ -35,6 +35,8 @@ Each post and comment has also the information about the author that wrote them.
 
 The posts from the Risklick API are updated one time per day by a batch file run by the cron application. The api script checks if the post slug is already present in the database or not. If not, it creates a new post with the information contained in the Risklick post.
 To simulate the function on the dashboard there is a button "update Risklick post". If you click it, wait the app to fetch the data and then refresh the page you will see the post.
+
+The fetching for all the db data ist at ths [link](http://localhost:3000/api/get-db-data)
 
 TODOS:
 

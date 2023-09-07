@@ -19,18 +19,20 @@ export default function Dashboard() {
   const [date, setDate] = useState("");
   const [loaded, setLoaded] = useState(false);
   const [post, setPost] = useState("");
-  //const [authorId, setAuthorId] = useState("");
   const [risklickPost, setRisklickPost] = useState("");
   useEffect(() => {
+    // get actual date for comments
     setDate(moment().format("MMMM Do YYYY, h:mm:ss a"));
   });
   useEffect(() => {
+    // fetch all posts and set the to a state adn check if loaded
     const fetchPosts = async () => {
       const response = await fetch("http://localhost:3000/api/post/get-posts");
       const gettedData = await response.json();
       setPosts(gettedData);
       setLoaded(true);
     };
+    // fetch all comment and set the to a state
     const fetchComments = async () => {
       const commentResponse = await fetch(
         "http://localhost:3000/api/post/get-comments"
@@ -38,12 +40,13 @@ export default function Dashboard() {
       const gettedComments = await commentResponse.json();
       setComments(gettedComments);
     };
-
+    // call functions
     fetchPosts();
     fetchComments();
 
-    //setAuthorId(session?.user.image);
+    // if comment is modified call this use effect to fetch data
   }, [commentRef]);
+  // call api route to update risklick api blog
   const fetchRisklick = async () => {
     try {
       const res = await fetch(
@@ -53,11 +56,13 @@ export default function Dashboard() {
         }
       );
       const risklickData = await res.json();
+      // set to a stato to console log and debug
       setRisklickPost(risklickData);
     } catch (e) {
       console.log(e);
     }
   };
+  // fetch comment to database
   const publishComment = async (e) => {
     e.preventDefault();
     const authorId = session?.user.image;
@@ -80,6 +85,7 @@ export default function Dashboard() {
       if (res.ok) {
         const form = e.target;
         form.reset();
+        // after publishind the comment refetch posts and comments
         const fetchPosts = async () => {
           const response = await fetch(
             "http://localhost:3000/api/post/get-posts"
@@ -126,6 +132,7 @@ export default function Dashboard() {
           <button onClick={fetchRisklick}>Update Risklick post</button>
         )}
       </div>
+      {/* Check if user is authenticated, if not do not show the blog */}
       {status === "authenticated" ? (
         <div className={styles.postsContainer}>
           <h1 style={{ paddingLeft: "2rem" }}>Blog posts</h1>
@@ -141,6 +148,7 @@ export default function Dashboard() {
                   <p>{post.postText}</p>
                   <div className={styles.comments}>
                     <div className={styles.flexColumn}>
+                      {/* Get all comments and filter by post id, to show only the comments of the actual post */}
                       {loaded &&
                         comments.length > 0 &&
                         comments

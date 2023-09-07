@@ -16,6 +16,7 @@ export default function Signin() {
   const [password, setPassword] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // sign in with next-auth function
     try {
       const res = await signIn("credentials", {
         email,

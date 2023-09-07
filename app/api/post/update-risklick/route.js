@@ -47,7 +47,7 @@ export async function GET() {
     const resCreatePost = await createPost.json();
     return NextResponse.json(resCreatePost);
   } catch (e) {
-    return e;
+    return NextResponse.json({ message: "An error occurred" }, { status: 500 });
   }
 }
 
@@ -62,6 +62,6 @@ export async function POST(req) {
     console.log("Disconnected");
     return NextResponse.json(data);
   } catch (e) {
-    console.log("Error in route: ", e);
+    return NextResponse.json({ message: "An error occurred" }, { status: 500 });
   }
 }

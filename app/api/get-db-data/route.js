@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
   try {
+    // connect to db and query all the tables in it
     const conn = await connectDB();
     const users = await conn.query("SELECT * FROM users");
     const posts = await conn.query("SELECT * FROM post");

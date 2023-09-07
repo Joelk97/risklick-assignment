@@ -6,7 +6,8 @@ export async function POST(req) {
   try {
     const { title, date, content, userId, slug } = await req.json();
     const conn = await connectDB();
-    console.log("Connected");
+
+    // Create post linked to the logged in user
     const response = await conn.query(
       `INSERT INTO post (title, createdAt, postText, authorId, slug) VALUES ('${title}', '${date}', '${content}', '${userId}', '${slug}')`
     );

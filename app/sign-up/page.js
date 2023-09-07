@@ -15,25 +15,7 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const router = useRouter();
-  const getUser = async () => {
-    try {
-      const resUserExists = await fetch("/api/auth/user-exists", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-      const user = await resUserExists.json();
-      if (user.length < 1) {
-        console.log(user?.[0].password);
-        return;
-      }
-      console.log(user);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // Check if user with this email exists, if not create one
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -123,7 +105,6 @@ export default function Signup() {
           <span style={{ textDecoration: "underline" }}>Sign-in</span>
         </Link>
       </form>
-      <button onClick={() => getUser()}>GET USER</button>
     </div>
   );
 }

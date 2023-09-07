@@ -87,10 +87,17 @@
   padding-left: 40px;
   border-radius: 10px;
   font-size: 16px;
+  font-family: "Poppins", sans-serif;
 }
 .commentButton {
   width: fit-content;
   align-self: flex-end;
+  padding: 5px 10px;
+  font-size: 14px;
+  background: #37607d;
+  color: #fffffa;
+  font-weight: 500;
+  border-radius: 5px;
 }
 .flexColumn {
   display: flex;

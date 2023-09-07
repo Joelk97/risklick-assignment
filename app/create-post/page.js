@@ -9,6 +9,7 @@ import slugify from "../components/slugify";
 
 export default function CreatePost() {
   const router = useRouter();
+  // Check if user is authenticated, if not so redirect to sign-in page
   const { status, data: session } = useSession({
     required: true,
     onUnauthenticated() {
@@ -20,17 +21,22 @@ export default function CreatePost() {
   const [userEmail, setUserEmail] = useState("");
   const [userId, setUserId] = useState("");
   const [date, setDate] = useState("");
+  // get user email and user id from next-auth session
   useEffect(() => {
     setUserEmail(session?.user.email);
     setUserId(session?.user.image);
+    // Get actual date for saving the post to the db
     setDate(moment().format("MMMM Do YYYY, h:mm:ss a"));
   });
 
   const handleSubmit = async (e) => {
+    // prevents the form to refresh and clear the data
     e.preventDefault();
+    // if informations are missing stop process
     if (!title || !content || !userId || !date) {
       return alert("Fill all fields please");
     }
+    // get slug from title
     const slug = slugify(title, "-");
     try {
       const res = await fetch("/api/post/create-post", {
@@ -46,8 +52,10 @@ export default function CreatePost() {
           slug,
         }),
       });
+      // if status = 201 "created"
       if (res.ok) {
         const form = e.target;
+        // clear all data from form
         form.reset();
         router.push("/dashboard");
       } else {
@@ -61,7 +69,6 @@ export default function CreatePost() {
   return (
     <div className={styles.main}>
       <h1>Create new post</h1>
-      {console.log(userId)}
       <form onSubmit={handleSubmit} className={styles.formContainer}>
         <label htmlFor="title">Title</label>
         <input

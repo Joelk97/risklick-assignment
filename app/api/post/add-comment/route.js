@@ -7,6 +7,7 @@ export async function POST(req) {
     const { comment, date, authorId, post } = await req.json();
     const conn = await connectDB();
     console.log("Connected");
+    // create comment linked to the post (postId) and to the authorId (signed in user)
     const response = await conn.query(
       `INSERT INTO comment (commentText, createdAt, authorId, postId) VALUES ('${comment}', '${date}', '${authorId}', '${post}')`
     );

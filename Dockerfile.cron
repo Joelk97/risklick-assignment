@@ -9,12 +9,11 @@ COPY ./cron /etc/cron.d/
 
 COPY ./cron/run-cron.sh /app/
 RUN chmod +x run-cron.sh
-# Copy your data fetching script into the container
 
 COPY ./app/api/post/update-risklick/route.js ./
 
 # Create a crontab file and add a job to run the script once a day
 #         min 0, hour 0, * day, * month, *year (Every day at 00:00)
-RUN echo '*/10 * * * * /etc/cron.d/run-cron.sh'
+RUN echo '0 0 * * * /etc/cron.d/run-cron.sh'
 # Run cron in the foreground
 CMD ["cron", "-f"]

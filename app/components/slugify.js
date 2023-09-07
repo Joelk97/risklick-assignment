@@ -1,4 +1,5 @@
 export default function (string, separator = "-") {
+  // Returns a slug for a given string (needed for the blog titles)
   return string
     .toString()
     .toLowerCase()
