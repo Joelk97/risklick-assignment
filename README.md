@@ -8,7 +8,7 @@ The app runs inside of a docker container. The container is structured with thre
 
 To setup everything make sure to have installed docker compose.
 In the next step enter inside of the next-app folder with the terminal and run
-
+**MAke sure ports 3000 and 3306 are free**
 **docker-compose up**
 
 Docker will build the app. It takes up to 3 minutes.
