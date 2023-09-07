@@ -6,7 +6,7 @@ export async function GET() {
   try {
     const conn = await connectDB();
     const response = await conn.query(
-      "SELECT post.postId, post.title, post.createdAt, post.postText, users.name FROM post JOIN users ON post.authorId = users.id ORDER BY post.postId DESC"
+      "SELECT post.slug, post.postId, post.title, post.createdAt, post.postText, users.name FROM post JOIN users ON post.authorId = users.id ORDER BY post.postId DESC"
     );
     conn.end();
     return NextResponse.json(response);

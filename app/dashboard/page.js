@@ -133,7 +133,7 @@ export default function Dashboard() {
             posts?.map((post) => {
               return (
                 <div key={post.postId} id={post.postId} className={styles.post}>
-                  <h2>{post.title}</h2>
+                  <h2 title={post.slug}>{post.title}</h2>
                   <div className={styles.flexRow}>
                     <span>{post.createdAt}</span>
                     <span>Written by {post.name}</span>
