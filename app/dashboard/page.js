@@ -8,10 +8,13 @@ import { useEffect, useRef, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
 import moment from "moment";
+import Search from "../components/search";
 
-export default function Dashboard() {
+export default function Dashboard({ searchParams }) {
+  const search = searchParams.q ?? "";
   const { status, data: session } = useSession();
   const commentRef = useRef();
+  const searchRef = useRef();
   const router = useRouter();
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState("");
@@ -24,10 +27,32 @@ export default function Dashboard() {
     // get actual date for comments
     setDate(moment().format("MMMM Do YYYY, h:mm:ss a"));
   });
+  const fetchPosts = async () => {
+    const response = await fetch("http://localhost:3000/api/post/get-posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        search,
+      }),
+    });
+    const gettedData = await response.json();
+    setPosts(gettedData);
+    setLoaded(true);
+  };
   useEffect(() => {
     // fetch all posts and set the to a state adn check if loaded
     const fetchPosts = async () => {
-      const response = await fetch("http://localhost:3000/api/post/get-posts");
+      const response = await fetch("http://localhost:3000/api/post/get-posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          search,
+        }),
+      });
       const gettedData = await response.json();
       setPosts(gettedData);
       setLoaded(true);
@@ -136,6 +161,8 @@ export default function Dashboard() {
       {status === "authenticated" ? (
         <div className={styles.postsContainer}>
           <h1 style={{ paddingLeft: "2rem" }}>Blog posts</h1>
+          <Search ref={searchRef} />
+          <button onClick={() => fetchPosts()}>Search</button>
           {loaded &&
             posts?.map((post) => {
               return (

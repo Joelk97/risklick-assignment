@@ -1,5 +1,5 @@
-CREATE USER 'joel'@'localhost' IDENTIFIED BY 'password';
+CREATE USER 'root'@'localhost' IDENTIFIED BY 'root';
 GRANT ALL PRIVILEGES ON *.* TO 'joel'@'localhost' WITH GRANT OPTION;
-CREATE USER 'joel'@'%' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON *.* TO 'joel'@'%' WITH GRANT OPTION;
+CREATE USER 'root'@'%' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;

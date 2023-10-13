@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   mariadb:
@@ -20,8 +20,7 @@ services:
       - ./mariadb:/docker-entrypoint-initdb.d/
     networks:
       - my-network
-    
-  
+
   next-app:
     container_name: next-app
     build:
@@ -48,7 +47,7 @@ services:
       - /app/.next
     networks:
       - my-network
-  
+
   cron-job:
     build:
       context: .
